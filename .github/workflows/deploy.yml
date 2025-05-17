@@ -27,3 +27,21 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/qrcode-api:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull Image Docker
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/qrcode-api:latest
+
+      - name: Run Docker Container
+        run: |
+          docker stop qrcode-api || true
+          docker rm qrcode-api || true
+          docker run -d -p 8080:8080 --name qrcode-api \
+            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+            -e AWS_REGION=us-east-2 \
+            -e AWS_BUCKET_NAME=qrcode-store-gen \
+            ${{ secrets.DOCKER_USERNAME }}/qrcode-api:latest
