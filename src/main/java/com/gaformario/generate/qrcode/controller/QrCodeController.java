@@ -29,7 +29,7 @@ public class QrCodeController {
     public ResponseEntity<QrCodeResponse> generate(@RequestBody @Valid QrCodeRequest request) {
         try {
             QrCodeResponse response = this.qrCodeGeneratorService.generateUploadQrCode(request.text());
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             log.error("error: ", e);
             return ResponseEntity.internalServerError().build();
