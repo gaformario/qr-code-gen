@@ -116,7 +116,7 @@ Content-Type: application/json
 
 ```json
 {
-  "url": "https://bucket.s3.region.amazonaws.com/uuid.png"
+  "url": "https://bucket.s3.region.amazonaws.com/uuid"
 }
 ```
 
