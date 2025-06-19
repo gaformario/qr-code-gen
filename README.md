@@ -1,15 +1,17 @@
 # 🔗 QR Code Generator API
 
-Uma API REST desenvolvida em Spring Boot provisionada em um AWS EC2 para geração de QR Codes personalizados com logo centralizado e upload automático para AWS S3.
-
+Uma API REST desenvolvida em Java Spring Boot provisionada em um AWS EC2 para geração de QR Codes personalizados com
+logo centralizado e upload automático para AWS S3.
 
 ## 📋 Sobre o Projeto
 
-Esta API permite gerar QR Codes a partir de textos/URLs, aplicando automaticamente um logo personalizado no centro do código e fazendo upload da imagem gerada para um bucket S3 da AWS. O projeto utiliza uma breve arquitetura hexagonal (ports and adapters) para melhor organização e testabilidade.
+Esta API permite gerar QR Codes a partir de URLs, aplicando um logo personalizado no QR Code, e fazendo upload da imagem
+gerada para um bucket S3 da AWS. O projeto utiliza uma breve arquitetura hexagonal (ports and adapters) para melhor
+organização e testabilidade.
 
 ## 🚀 Funcionalidades
 
-- ✅ Geração de QR Codes a partir de texto/URL
+- ✅ Geração de QR Codes a partir de URL's
 - ✅ Logo personalizado centralizado no QR Code
 - ✅ Upload automático para AWS S3
 - ✅ API REST documentada com Swagger/OpenAPI
@@ -60,13 +62,15 @@ src/main/java/com/gaformario/generate/qrcode/
 
 O projeto possui pipeline completamente automatizado em **2 estágios**:
 
-#### 🏗️ **Build Stage** 
+#### 🏗️ **Build Stage**
+
 - Roda em GitHub Actions (ubuntu-latest)
 - Build da aplicação Java 21
 - Criação da imagem Docker
 - Push para DockerHub
 
 #### 🚀 **Deploy Stage**
+
 - Executa em **runner self-hosted** em **EC2 AWS**
 - Pull da nova imagem Docker
 - Deploy com zero downtime
@@ -84,6 +88,7 @@ graph LR
 ```
 
 ### Infraestrutura AWS
+
 - **EC2**: Instância para runner e hospedagem
 - **S3**: Armazenamento das imagens QR Code
 - **IAM**: Credenciais e permissões
@@ -97,6 +102,7 @@ graph LR
 ## 📖 API Endpoints
 
 ### Geração de QR Code
+
 ```http
 POST /qr-code
 Content-Type: application/json
@@ -107,6 +113,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "url": "https://bucket.s3.region.amazonaws.com/uuid.png"
@@ -114,12 +121,14 @@ Content-Type: application/json
 ```
 
 ### Documentação
+
 - **Swagger UI**: `/swagger-ui.html`
 - **OpenAPI Spec**: `/v3/api-docs`
 
 ## ⚙️ Configuração
 
 ### Variáveis de Ambiente
+
 ```bash
 AWS_REGION=sua-regiao
 AWS_BUCKET_NAME=seu-bucket
@@ -128,6 +137,7 @@ AWS_SECRET_ACCESS_KEY=sua-secret
 ```
 
 ### Execução Local
+
 ```bash
 # Clone e execute
 git clone <repo-url>

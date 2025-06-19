@@ -4,6 +4,7 @@ import com.gaformario.generate.qrcode.dto.QrCodeRequest;
 import com.gaformario.generate.qrcode.dto.QrCodeResponse;
 import com.gaformario.generate.qrcode.service.QrCodeGeneratorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class QrCodeController {
     }
 
     @PostMapping
-    public ResponseEntity<QrCodeResponse> generate(@RequestBody QrCodeRequest request) {
+    public ResponseEntity<QrCodeResponse> generate(@RequestBody @Valid QrCodeRequest request) {
         try {
             QrCodeResponse response = this.qrCodeGeneratorService.generateUploadQrCode(request.text());
             return ResponseEntity.ok(response);
